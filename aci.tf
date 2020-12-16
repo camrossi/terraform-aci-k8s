@@ -35,7 +35,7 @@ provider "kubectl" {
 }
 
 resource "aci_application_profile" "ap" {
-  tenant_dn  = aci_tenant.tenant.id
+  tenant_dn  = "uni/tn-KubeSpray"
   name       = var.application
 }
 
