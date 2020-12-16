@@ -35,7 +35,7 @@ provider "kubectl" {
 }
 
 resource "aci_application_profile" "ap" {
-  tenant_dn  = "uni/tn-KubeSpray"
+  tenant_dn  = "uni/tn-Kubernetes"
   name       = var.application
 }
 
@@ -43,25 +43,25 @@ resource "aci_application_epg" "demoepg" {
   application_profile_dn = aci_application_profile.ap.id
   name = var.epg
   flood_on_encap = "disabled"
-  relation_fv_rs_bd = "uni/tn-KubeSpray/BD-aci-containers-KubeSpray-pod-bd"
-  relation_fv_rs_prov = ["uni/tn-KubeSpray/brc-aci-containers-KubeSpray-health-check"]
-  relation_fv_rs_cons = ["uni/tn-common/brc-KubeSpray-l3out-allow-all",
-                        "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-dns", 
-                        "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-icmp", 
-                        "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-istio"]
+  relation_fv_rs_bd = "uni/tn-Kubernetes/BD-aci-containers-Kubernetes-pod-bd"
+  relation_fv_rs_prov = ["uni/tn-Kubernetes/brc-aci-containers-Kubernetes-health-check"]
+  relation_fv_rs_cons = ["uni/tn-common/brc-Kubernetes-l3out-allow-all",
+                        "uni/tn-Kubernetes/brc-aci-containers-Kubernetes-dns", 
+                        "uni/tn-Kubernetes/brc-aci-containers-Kubernetes-icmp", 
+                        "uni/tn-Kubernetes/brc-aci-containers-Kubernetes-istio"]
 }
 
 resource "aci_epg_to_domain" "epg_to_vmm" {
 
   application_epg_dn    = aci_application_epg.demoepg.id
-  tdn                   = "uni/vmmp-Kubernetes/dom-KubeSpray"
+  tdn                   = "uni/vmmp-Kubernetes/dom-Kubernetes"
 }
 
 resource "kubernetes_namespace" "ns" {
   metadata {
     name = var.epg
     annotations = {
-      "opflex.cisco.com/endpoint-group" = "{\"tenant\":\"${var.tenant}\",\"app-profile\":\"${var.application}\",\"name\":\"${var.epg}\"}"
+      "opflex.cisco.com/endpoint-group" = "{\"tenant\":\"Kubernetes\",\"app-profile\":\"${var.application}\",\"name\":\"${var.epg}\"}"
     }
   }
 }
