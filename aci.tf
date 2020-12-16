@@ -21,10 +21,27 @@ provider "aci" {
   insecure = true
 }
 
-resource "aci_tenant" "test-tenant" {
+resource "aci_tenant" "tenant" {
   name        = var.tenant
   description = "This tenant is created by terraform"
 }
+
+resource "aci_application_profile" "ap" {
+  tenant_dn  = aci_tenant.tenant.id
+  name       = var.app
+}
+
+resource "aci_application_epg" "demoepg" {
+  application_profile_dn = aci_application_profile.ap.id
+  name = var.epg
+  flood_on_encap = "disabled"
+  relation_fv_rs_bd = "uni/tn-KubeSpray/BD-aci-containers-KubeSpray-pod-bd"
+  relation_fv_rs_prov = "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-health-check"
+  relation_fv_rs_cons = "uni/tn-common/brc-KubeSpray-l3out-allow-all"
+  relation_fv_rs_cons = "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-dns"
+  relation_fv_rs_cons = "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-dns"
+  relation_fv_rs_cons = "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-istio"
+
 
 # Same parameters as kubernetes provider
 provider "kubernetes" {
@@ -35,7 +52,7 @@ resource "kubernetes_namespace" "example" {
   metadata {
     name = "my-first-namespace"
     annotations = {
-      "opflex.cisco.com/endpoint-group" = "123"
+      "opflex.cisco.com/endpoint-group" = "{"tenant":"${var.tenant}","app-profile":"${var.app}","name":"${var.epg}"}"
     }
   }
 }
