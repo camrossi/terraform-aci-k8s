@@ -35,7 +35,7 @@ resource "kubernetes_namespace" "example" {
   metadata {
     name = "my-first-namespace"
     annotations = {
-      opflex.cisco.com/endpoint-group = "123"
+      "opflex.cisco.com/endpoint-group" = "123"
     }
   }
 }
