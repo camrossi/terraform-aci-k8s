@@ -22,7 +22,7 @@ provider "aci" {
 }
 
 resource "aci_tenant" "test-tenant" {
-  name        = "test-tenant"
+  name        = var.tenant
   description = "This tenant is created by terraform"
 }
 
@@ -34,5 +34,8 @@ provider "kubernetes" {
 resource "kubernetes_namespace" "example" {
   metadata {
     name = "my-first-namespace"
+    annotations = {
+      opflex.cisco.com/endpoint-group = "123"
+    }
   }
 }
