@@ -34,11 +34,6 @@ provider "kubectl" {
   config_path = "./kube_config"
 }
 
-resource "aci_tenant" "tenant" {
-  name        = var.tenant
-  description = "This tenant is created by terraform"
-}
-
 resource "aci_application_profile" "ap" {
   tenant_dn  = aci_tenant.tenant.id
   name       = var.application
