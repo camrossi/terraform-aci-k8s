@@ -8,6 +8,10 @@ terraform {
       source = "hashicorp/kubernetes"
       version = "1.13.3"
     }
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = ">= 1.9.4"
+    }
  }
 }
 
@@ -19,6 +23,15 @@ provider "aci" {
   # cisco-aci url
   url      = "http://fab2-apic1.cam.ciscolabs.com/"
   insecure = true
+}
+
+provider "kubernetes" {
+  config_path = "./kube_config"
+}
+
+# Same parameters as kubernetes provider
+provider "kubectl" {
+  config_path = "./kube_config"
 }
 
 resource "aci_tenant" "tenant" {
@@ -43,11 +56,6 @@ resource "aci_application_epg" "demoepg" {
                         "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-istio"]
 }
 
-# Same parameters as kubernetes provider
-provider "kubernetes" {
-  config_path = "./kube_config"
-}
-
 resource "kubernetes_namespace" "ns" {
   metadata {
     name = var.epg
@@ -55,4 +63,9 @@ resource "kubernetes_namespace" "ns" {
       "opflex.cisco.com/endpoint-group" = "{\"tenant\":\"${var.tenant}\",\"app-profile\":\"${var.application}\",\"name\":\"${var.epg}\"}"
     }
   }
+}
+
+resource "kubectl_manifest" "my_service" {
+    override_namespace = var.epg
+    yaml_body = file("guestbook.yaml")
 }
