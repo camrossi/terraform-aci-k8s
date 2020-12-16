@@ -27,7 +27,7 @@ resource "aci_tenant" "test-tenant" {
 }
 
 # Same parameters as kubernetes provider
-provider "kubectl" {
+provider "kubernetes" {
   load_config_file = kube_config
 }
 
