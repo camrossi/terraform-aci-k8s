@@ -39,7 +39,7 @@ resource "aci_application_epg" "demoepg" {
   relation_fv_rs_prov = ["uni/tn-KubeSpray/brc-aci-containers-KubeSpray-health-check"]
   relation_fv_rs_cons = ["uni/tn-common/brc-KubeSpray-l3out-allow-all",
                         "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-dns", 
-                        "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-dns", 
+                        "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-icmp", 
                         "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-istio"]
 }
 
@@ -48,9 +48,9 @@ provider "kubernetes" {
   config_path = "./"
 }
 
-resource "kubernetes_namespace" "example" {
+resource "kubernetes_namespace" "ns" {
   metadata {
-    name = "my-first-namespace"
+    name = var.epg
     annotations = {
       "opflex.cisco.com/endpoint-group" = "{\"tenant\":\"${var.tenant}\",\"app-profile\":\"${var.application}\",\"name\":\"${var.epg}\"}"
     }
