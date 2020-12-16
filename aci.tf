@@ -65,7 +65,12 @@ resource "kubernetes_namespace" "ns" {
   }
 }
 
-resource "kubectl_manifest" "my_service" {
+data "kubectl_file_documents" "manifests" {
+    content = file("guestbook.yaml")
+}
+
+resource "kubectl_manifest" "my_app" {
     override_namespace = var.epg
-    yaml_body = file("guestbook.yaml")
+    count     = length(data.kubectl_file_documents.manifests.documents)
+    yaml_body = element(data.kubectl_file_documents.manifests.documents, count.index)
 }
