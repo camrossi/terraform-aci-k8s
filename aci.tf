@@ -74,4 +74,5 @@ resource "kubectl_manifest" "my_app" {
     override_namespace = var.application
     count     = length(data.kubectl_file_documents.manifests.documents)
     yaml_body = element(data.kubectl_file_documents.manifests.documents, count.index)
+    depends_on = [kubernetes_namespace.ns]
 }
