@@ -1,9 +1,9 @@
 terraform {
  required_providers {
-   aci = {
-     source = "CiscoDevNet/aci"
-     version = "0.5.2"
-   }
+#   aci = {
+#     source = "CiscoDevNet/aci"
+#     version = "0.5.2"
+#   }
     kubernetes = {
       source = "hashicorp/kubernetes"
       version = "1.13.3"
