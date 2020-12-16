@@ -59,9 +59,9 @@ resource "aci_epg_to_domain" "epg_to_vmm" {
 
 resource "kubernetes_namespace" "ns" {
   metadata {
-    name = var.epg
+    name = var.application
     annotations = {
-      "opflex.cisco.com/endpoint-group" = "{\"tenant\":\"Kubernetes\",\"app-profile\":\"${var.application}\",\"name\":\"${var.epg}\"}"
+      "opflex.cisco.com/endpoint-group" = "{\"tenant\":\"Kubernetes\",\"app-profile\":\"${var.application}\",\"name\":\"${var.application}\"}"
     }
   }
 }
