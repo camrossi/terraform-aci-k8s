@@ -36,11 +36,11 @@ resource "aci_application_epg" "demoepg" {
   name = var.epg
   flood_on_encap = "disabled"
   relation_fv_rs_bd = "uni/tn-KubeSpray/BD-aci-containers-KubeSpray-pod-bd"
-  relation_fv_rs_prov = "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-health-check"
-  relation_fv_rs_cons = "uni/tn-common/brc-KubeSpray-l3out-allow-all"
-  relation_fv_rs_cons = "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-dns"
-  relation_fv_rs_cons = "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-dns"
-  relation_fv_rs_cons = "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-istio"
+  relation_fv_rs_prov = ["uni/tn-KubeSpray/brc-aci-containers-KubeSpray-health-check"]
+  relation_fv_rs_cons = ["uni/tn-common/brc-KubeSpray-l3out-allow-all",
+                        "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-dns", 
+                        "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-dns", 
+                        "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-istio"]
 
 
 # Same parameters as kubernetes provider
