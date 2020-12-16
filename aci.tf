@@ -28,7 +28,7 @@ resource "aci_tenant" "test-tenant" {
 
 # Same parameters as kubernetes provider
 provider "kubernetes" {
-  load_config_file = kube_config
+  config_file = ${file("./kube_config"_}
 }
 
 resource "kubernetes_namespace" "example" {
