@@ -61,7 +61,7 @@ resource "kubernetes_namespace" "ns" {
   metadata {
     name = var.application
     annotations = {
-      "opflex.cisco.com/endpoint-group" = "{\"tenant\":\"Kubernetes\",\"app-profile\":\"${var.application}\",\"name\":\"${var.application}\"}"
+      "opflex.cisco.com/endpoint-group" = "{\"tenant\":\"Kubernetes\",\"app-profile\":\"${var.application}\",\"name\":\"${var.epg}\"}"
     }
   }
 }
