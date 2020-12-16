@@ -28,7 +28,7 @@ resource "aci_tenant" "tenant" {
 
 resource "aci_application_profile" "ap" {
   tenant_dn  = aci_tenant.tenant.id
-  name       = var.app
+  name       = var.application
 }
 
 resource "aci_application_epg" "demoepg" {
@@ -52,7 +52,7 @@ resource "kubernetes_namespace" "example" {
   metadata {
     name = "my-first-namespace"
     annotations = {
-      "opflex.cisco.com/endpoint-group" = "{\"tenant\":\"${var.tenant}\",\"app-profile\":\"${var.app}\",\"name\":\"${var.epg}\"}"
+      "opflex.cisco.com/endpoint-group" = "{\"tenant\":\"${var.tenant}\",\"app-profile\":\"${var.application}\",\"name\":\"${var.epg}\"}"
     }
   }
 }
