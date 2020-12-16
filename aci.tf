@@ -71,7 +71,7 @@ data "kubectl_file_documents" "manifests" {
 }
 
 resource "kubectl_manifest" "my_app" {
-    override_namespace = var.epg
+    override_namespace = var.application
     count     = length(data.kubectl_file_documents.manifests.documents)
     yaml_body = element(data.kubectl_file_documents.manifests.documents, count.index)
 }
