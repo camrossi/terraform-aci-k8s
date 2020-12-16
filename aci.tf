@@ -41,7 +41,7 @@ resource "aci_application_epg" "demoepg" {
                         "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-dns", 
                         "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-dns", 
                         "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-istio"]
-
+}
 
 # Same parameters as kubernetes provider
 provider "kubernetes" {
