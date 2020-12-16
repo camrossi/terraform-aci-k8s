@@ -52,7 +52,7 @@ resource "kubernetes_namespace" "example" {
   metadata {
     name = "my-first-namespace"
     annotations = {
-      "opflex.cisco.com/endpoint-group" = "{"tenant":"${var.tenant}","app-profile":"${var.app}","name":"${var.epg}"}"
+      "opflex.cisco.com/endpoint-group" = "{\"tenant\":\"${var.tenant}\",\"app-profile\":\"${var.app}\",\"name\":\"${var.epg}\"}"
     }
   }
 }
