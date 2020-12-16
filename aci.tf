@@ -56,6 +56,12 @@ resource "aci_application_epg" "demoepg" {
                         "uni/tn-KubeSpray/brc-aci-containers-KubeSpray-istio"]
 }
 
+resource "aci_epg_to_domain" "epg_to_vmm" {
+
+  application_epg_dn    = aci_application_epg.demoepg.id
+  tdn                   = "uni/vmmp-Kubernetes/dom-KubeSpray"
+}
+
 resource "kubernetes_namespace" "ns" {
   metadata {
     name = var.epg
