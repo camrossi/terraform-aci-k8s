@@ -65,7 +65,7 @@ resource "kubernetes_namespace" "ns" {
     }
   }
 }
-
+#add comment
 data "kubectl_file_documents" "manifests" {
     content = file("guestbook.yaml")
 }
