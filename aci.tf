@@ -4,6 +4,10 @@ terraform {
      source = "CiscoDevNet/aci"
      version = "0.5.2"
    }
+    kubernetes = {
+      source = "hashicorp/kubernetes"
+      version = "1.13.3"
+    }
  }
 }
 
@@ -20,4 +24,15 @@ provider "aci" {
 resource "aci_tenant" "test-tenant" {
   name        = "test-tenant"
   description = "This tenant is created by terraform"
+}
+
+# Same parameters as kubernetes provider
+provider "kubectl" {
+  load_config_file = kube_config
+}
+
+resource "kubernetes_namespace" "example" {
+  metadata {
+    name = "my-first-namespace"
+  }
 }
