@@ -1,7 +1,3 @@
-variable "tenant" {
-  type = string
-}
-
 variable "application" {
   type = string
 }
