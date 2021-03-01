@@ -28,7 +28,7 @@ provider "aci" {
 provider "kubernetes" {
   config_path = "./kube_config"
 }
-
+# Test
 # Same parameters as kubernetes provider
 provider "kubectl" {
   config_path = "./kube_config"
