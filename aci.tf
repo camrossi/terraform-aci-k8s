@@ -80,7 +80,7 @@ resource "kubectl_manifest" "my_app" {
 
 data "kubernetes_service" "guestbook" {
   metadata {
-    namespace = kubernetes_namespace.ns.name
+    namespace = kubernetes_namespace.ns.id
     name = "frontend"
   }
 }
