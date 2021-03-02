@@ -22,7 +22,6 @@ provider "aci" {
   password = var.apic_password
   # cisco-aci url
   url      = var.apic_url 
-  #"http://fab2-apic1.cam.ciscolabs.com/"
   insecure = true
 }
 
