@@ -17,11 +17,12 @@ terraform {
 
 provider "aci" {
   # cisco-aci user name
-  username = "admin"
+  username = var.apic_username
   # cisco-aci password
-  password = "123Cisco123"
+  password = var.apic_password
   # cisco-aci url
-  url      = "http://fab2-apic1.cam.ciscolabs.com/"
+  url      = var.apic_url 
+  #"http://fab2-apic1.cam.ciscolabs.com/"
   insecure = true
 }
 
@@ -65,7 +66,7 @@ resource "kubernetes_namespace" "ns" {
     }
   }
 }
-#add comment
+
 data "kubectl_file_documents" "manifests" {
     content = file("guestbook.yaml")
 }
@@ -76,3 +77,4 @@ resource "kubectl_manifest" "my_app" {
     yaml_body = element(data.kubectl_file_documents.manifests.documents, count.index)
     depends_on = [kubernetes_namespace.ns]
 }
+
