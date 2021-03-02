@@ -78,3 +78,9 @@ resource "kubectl_manifest" "my_app" {
     depends_on = [kubernetes_namespace.ns]
 }
 
+data "kubernetes_service" "guestbook" {
+  metadata {
+    namespace = kubernetes_namespace.ns.name
+    name = "frontend"
+  }
+}
